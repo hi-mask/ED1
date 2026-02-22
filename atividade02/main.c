@@ -1,10 +1,17 @@
 #include <stdio.h>
 #include "funcoes.h"
+#include <stdlib.h>
 int main(){
 
     SET conjunto;
-    size_t tamanho = lerTamanho();
+    int tamanho = lerTamanho();
 
-    printf("tamanho e: %d", tamanho);
+    conjunto.capacidade = tamanho;
+    
+    criarConjunto(&conjunto);
+    exibirConjunto(&conjunto);
+
+    free(conjunto.array);
+
     return 0;
 }
