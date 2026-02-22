@@ -9,4 +9,6 @@ void criarConjunto(SET * const conjA);
 
 void exibirConjunto(SET const * const conjA);
 
-void realizarBusca(SET const * const conjA);
+int lerElemento();
+
+int realizarBusca(SET const * const conjA, int elemento);

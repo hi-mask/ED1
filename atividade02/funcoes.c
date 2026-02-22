@@ -35,4 +35,23 @@ void exibirConjunto(SET const * const conjA){
     printf("}\n");
 }
 
-void realizarBusca(SET const * const conjA);
+int lerElemento(){
+    int elemento = 0;
+    printf("\nElemento: ");
+    scanf("%d", &elemento);
+
+    return elemento;
+}
+
+int realizarBusca(SET const * const conjA, int elemento){
+    int resposta = -1; /*será alterado para i apenas
+     se o loop encontrar o elemento na posicao i*/
+
+    for(int i = 0; i < conjA->capacidade; i++){
+        if(conjA->array[i] == elemento){
+            resposta = i; // achou o elemento na posicao i
+        }
+    }
+
+    return resposta;
+}
