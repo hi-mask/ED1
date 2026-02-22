@@ -3,7 +3,7 @@
 int main(){
 
     SET conjunto;
-    int tamanho = lerTamanho();
+    size_t tamanho = lerTamanho();
 
     printf("tamanho e: %d", tamanho);
     return 0;
