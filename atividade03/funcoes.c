@@ -84,8 +84,8 @@ void copiarConjunto(SET * const conjCopia, SET const * const conjOriginal){
 
     conjCopia->capacidade = conjOriginal->capacidade; // capacidade igual
     conjCopia->array = malloc(conjCopia->capacidade * sizeof(int));
-
-    for(int i = 0; i < conjCopia->capacidade; i++){
+    int i = 0;
+    for(i = 0; i < conjCopia->capacidade; i++){
         conjCopia->array[i] = conjOriginal->array[i];
     }
 
