@@ -9,11 +9,14 @@
     	1 - fila - ponteiro para a struct com os dados da fila
   =========================================================*/
 void dadosDaFila(TFila const * const fila){
-  
+    printf("Quantidade de elementos da fila: %d\n", fila->quantidadeDeElementos);
+    printf("Inicio da fila: %d\n", fila->inicio);
+    printf("Fim da fila: %d\n", fila->fim);
+    printf("Endereco da fila: %p\n", &fila);
 }
 
 /*=========================================================
-    Função que cria e inicializaa uma fila
+    Função que cria e inicializa uma fila
     Parametros: 
 		1 - tamanho - define a quantidade de elementos que a fila contem
     	2 - fila - ponteiro para a struct com os dados da fila
@@ -104,12 +107,18 @@ char* mostrarFila(TFila const *const fila){
   =========================================================*/
 void enfileirar(int elemento, TFila *const fila){
     if(filaEstaCheia(fila)) return;
-      fila->fim++; // incrementando o fim (andando)
-
-      if(fila->fim >= fila->tamanho) fila->fim = 0; // se ele estourou a fila, ele é movido pra posição 0
+      if(filaEstaVazia(fila)){
+        fila->inicio = 0;
+        fila->fim = 0;
+      } 
+      else {
+        fila->fim++;
+        if(fila->fim >= fila->tamanho) fila->fim = 0; // se ele estourou a fila, ele é movido pra posição 0
+      }
 
       fila->array[fila->fim] = elemento; //guardando na posição
       fila->quantidadeDeElementos++; // aumentando o numero de elementos presentes na fila
+      
 }
 /*=========================================================
     Função para retirar um elemento da fila
