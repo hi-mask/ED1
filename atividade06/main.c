@@ -26,37 +26,54 @@ int main(void){
         printf("\n\tGeral\n");
         printf("10. Mostrar Lista\n11. Sair\n");
         scanf("%d", &opcao);
+        getchar();
         switch(opcao){
             case 1:
+            if(listaEstaCheia(&lista)){
+                printf("Lista Cheia!\n");
+                break;
+            }
             printf("Elemento a ser inserido no inicio:\n");
             scanf("%d", &elemento);
+            getchar();
             inserirInicioLista(&lista, elemento);
             break;
             
             case 2:
+            if(listaEstaVazia(&lista)){
+                printf("Lista Vazia!\n");
+                break;
+            }    
             printf("Elemento no inicio:\n");
             printf("%d\n", acessarInicioLista(&lista));
             break;
 
             case 3:
             retirarIniciolista(&lista);
-            printf("Elemento retirado no inicio\n");
             break;
 
             case 4:
-            inserirFimLista(&lista, elemento);
+            if(listaEstaCheia(&lista)){
+                printf("Lista Cheia!\n");
+                break;
+            }
             printf("Elemento a ser inserido no fim:\n");
             scanf("%d", &elemento);
-            return 0;
+            getchar();
+            inserirFimLista(&lista, elemento);
+            break;
             
             case 5:
+            if(listaEstaVazia(&lista)){
+                printf("Lista Vazia!\n");
+                break;
+            }   
             printf("Elemento no fim:\n");
             printf("%d\n", acessarFimLista(&lista));
             break;
 
             case 6:
             retirarFimlista(&lista);
-            printf("Elemento retirado no fim\n");
             break;
 
             case 10:
@@ -64,6 +81,7 @@ int main(void){
             break;
 
             case 11:
+            printf("Saindo...\n");
             liberarLista(&lista);
             return 0;
 

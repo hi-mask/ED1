@@ -31,7 +31,7 @@ void inicializarLista(TLista * const lista, int tamanho){
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
   =========================================================*/
-void liberarLista(TLista *  const lista){
+void liberarLista(TLista * const lista){
     free(lista->array);
     lista->tamanho = 0;
     lista->ocupacao = 0;
@@ -54,9 +54,14 @@ void mostrarLista(TLista const * const lista){
     printf("Lista = { ");
 
     int *p = lista->array;
-    while(*p != lista->ocupacao){
-        printf(" %d ", *p);
+    int *fim = lista->array + lista->ocupacao;
 
+    while(p < fim){
+        if(p == fim -1){
+            printf("%d ", *p);
+            break;
+        }
+        printf("%d, ", *p);
         p++;
     }
     printf("}\n");
@@ -98,7 +103,10 @@ int listaEstaCheia(TLista const * const lista){
         2 - elemento - elemento a ser inserido no fim da lista
   =========================================================*/
 void inserirFimLista(TLista * const lista, int elemento){
-    if(listaEstaCheia(lista)) printf("Lista cheia!\n");
+    if(listaEstaCheia(lista)){
+        printf("Lista cheia!\n");
+        return;
+    }
     /*Guardo elementos no array na posicao de ocupação*/
     lista->array[lista->ocupacao] = elemento;
     //Como eu guardei um elemento, preciso incrementar
@@ -113,8 +121,6 @@ void inserirFimLista(TLista * const lista, int elemento){
 		elemento que está na posição ocupação - 1
   =========================================================*/
 int acessarFimLista(TLista const * const lista){
-    if(listaEstaVazia(lista)) printf("Lista vazia!\n");
-    
     /*a ocupação sempre está na frente, por isso tenho que
     fazer lista->ocupacao-1 */
     return lista->array[lista->ocupacao - 1];
@@ -124,10 +130,12 @@ int acessarFimLista(TLista const * const lista){
     Função que retira um elemento no fim da lista
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
-        2 - elemento - elemento a ser inserido no fim da lista
   =========================================================*/
 void retirarFimlista(TLista * const lista){
-    if(listaEstaVazia(lista)) printf("Lista Vazia!\n");
+    if(listaEstaVazia(lista)){
+        printf("Lista Vazia!\n");
+        return;
+    }
 
     lista->ocupacao--;
 }
@@ -139,19 +147,16 @@ void retirarFimlista(TLista * const lista){
         2 - elemento - elemento a ser inserido no inicio da lista
   =========================================================*/
 void inserirInicioLista(TLista * const lista, int elemento){
-    if(listaEstaCheia(lista)) printf("Lista Cheia!\n");
-
+    if(listaEstaCheia(lista)){
+        printf("Lista Cheia!\n");
+        return;
+    }
     //mover elementos uma casa pro lado
     int aux = lista->ocupacao;
     while(aux != 0){
         lista->array[aux] = lista->array[aux - 1]; // recebe elemento da pos anterior
         aux--; // ando uma posição pra tras
     }
-
-    /* rascunho 
-    int *p = (lista->array + lista->ocupacao);
-    */
-
 
     lista->ocupacao++; // recebe um valor acima do inicial
     lista->array[0] = elemento; // posicao inicial recebe o elemento
@@ -165,8 +170,6 @@ void inserirInicioLista(TLista * const lista, int elemento){
 		elemento que está na posição 0
   =========================================================*/
 int acessarInicioLista(TLista const * const lista){
-    if(listaEstaVazia(lista)) printf("Lista Vazia!\n");
-
     return lista->array[0]; // retornando elemento da pos 0
 }
 
@@ -177,7 +180,10 @@ int acessarInicioLista(TLista const * const lista){
       2 - elemento - elemento a ser inserido no inicio da lista
   =========================================================*/
 void retirarIniciolista(TLista * const lista){
-    if(listaEstaVazia(lista)) printf("Lista Vazia!\n");
+    if(listaEstaVazia(lista)){
+        printf("Lista Vazia!\n");
+        return;
+    }
 
     int aux = 0;
 
