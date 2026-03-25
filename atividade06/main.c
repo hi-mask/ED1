@@ -10,11 +10,6 @@ int main(void){
     mostrarDadosLista(&lista);
     inicializarLista(&lista, 5);
     printf("\n*******************************\n");
-    /*printf("\n\tLista Vazia = %d\n", listaEstaVazia(&lista));
-    printf("\n*******************************\n");
-    printf("\n\tLista Cheia = %d\n", listaEstaCheia(&lista));
-    printf("\n*******************************\n");
-    */
 
     do{
         int opcao = 0, elemento = 0;
@@ -40,11 +35,6 @@ int main(void){
             break;
             
             case 2:
-            if(listaEstaVazia(&lista)){
-                printf("Lista Vazia!\n");
-                break;
-            }    
-            printf("Elemento no inicio:\n");
             printf("%d\n", acessarInicioLista(&lista));
             break;
 
@@ -64,16 +54,12 @@ int main(void){
             break;
             
             case 5:
-            if(listaEstaVazia(&lista)){
-                printf("Lista Vazia!\n");
-                break;
-            }   
-            printf("Elemento no fim:\n");
             printf("%d\n", acessarFimLista(&lista));
             break;
 
             case 6:
             retirarFimlista(&lista);
+            printf("Elemento retirado do fim!\n");
             break;
 
             case 10:

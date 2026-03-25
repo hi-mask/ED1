@@ -18,7 +18,7 @@ void mostrarDadosLista(TLista const * const lista);
 /*=========================================================
     Função que cria e inicializa uma lista
     Parametros: 
-		1 - lista - define a quantidade de elementos que a lista contem
+		  1 - lista - define a quantidade de elementos que a lista contem
     	2 - tamanho - ponteiro para a struct com os dados da lista
   =========================================================*/
 void inicializarLista(TLista * const lista, int tamanho);
@@ -27,8 +27,6 @@ void inicializarLista(TLista * const lista, int tamanho);
     Função para mostrar a lista
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
-	Retorno:
-		ponteiro para a string com os dados da lista
   =========================================================*/
 void mostrarLista(TLista const * const lista);
 
@@ -45,7 +43,7 @@ void liberarLista(TLista *  const lista);
     	1 - lista - ponteiro para a struct com os dados da lista
 	Retorno:
 		!= 0 	- lista esta cheia
-		0 		-  lista não esta cheia
+		0 		- lista não esta cheia
   =========================================================*/
 int listaEstaVazia(TLista const * const lista);
 
@@ -55,7 +53,7 @@ int listaEstaVazia(TLista const * const lista);
     	1 - lista - ponteiro para a struct com os dados da lista
 	Retorno:
 		!= 0 	- lista esta cheia
-		0 		-  lista não esta cheia
+		0 		- lista não esta cheia
   =========================================================*/
 int listaEstaCheia(TLista const * const lista);
 
@@ -72,7 +70,7 @@ void inserirFimLista(TLista * const lista, int elemento);
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
     Retorno:
-		elemento que está na posição ocupação - 1
+		- Elemento na posição ocupação - 1
   =========================================================*/
 int acessarFimLista(TLista const * const lista);
 
@@ -80,7 +78,6 @@ int acessarFimLista(TLista const * const lista);
     Função que retira um elemento no fim da lista
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
-      2 - elemento - elemento a ser inserido no fim da lista
   =========================================================*/
 void retirarFimlista(TLista * const lista);
 
@@ -97,7 +94,7 @@ void inserirInicioLista(TLista * const lista, int elemento);
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
     Retorno:
-		elemento que está na posição 0
+      - Elemento na posição inicial
   =========================================================*/
 int acessarInicioLista(TLista const * const lista);
 
@@ -105,7 +102,6 @@ int acessarInicioLista(TLista const * const lista);
     Função que retira um elemento no inicio da lista
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
-      2 - elemento - elemento a ser inserido no inicio da lista
   =========================================================*/
 void retirarIniciolista(TLista * const lista);
 #endif

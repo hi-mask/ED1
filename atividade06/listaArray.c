@@ -42,8 +42,6 @@ void liberarLista(TLista * const lista){
     Função para mostrar a lista
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
-	Retorno:
-		ponteiro para a string com os dados da lista
   =========================================================*/
 void mostrarLista(TLista const * const lista){
     if(listaEstaVazia(lista)){
@@ -74,7 +72,7 @@ void mostrarLista(TLista const * const lista){
     	1 - lista - ponteiro para a struct com os dados da lista
 	Retorno:
 		!= 0 	- lista esta cheia
-		0 		-  lista não esta cheia
+		0 		- lista não esta cheia
   =========================================================*/
 int listaEstaVazia(TLista const * const lista){
     if(lista->ocupacao == 0) return 1;
@@ -88,7 +86,7 @@ int listaEstaVazia(TLista const * const lista){
     	1 - lista - ponteiro para a struct com os dados da lista
 	Retorno:
 		!= 0 	- lista esta cheia
-		0 		-  lista não esta cheia
+		0 		- lista não esta cheia
   =========================================================*/
 int listaEstaCheia(TLista const * const lista){
     if(lista->ocupacao == lista->tamanho) return 1;
@@ -109,7 +107,9 @@ void inserirFimLista(TLista * const lista, int elemento){
     } //Guardo elementos no array na posicao de ocupação
     int * const p = lista->array; 
     *(p + lista->ocupacao) = elemento;
-    
+
+    printf("O elemento %d foi inserido no fim!\n", elemento);
+
     lista->ocupacao++;
 }
 
@@ -118,12 +118,15 @@ void inserirFimLista(TLista * const lista, int elemento){
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
     Retorno:
-		elemento que está na posição ocupação - 1
+		- Elemento na posição ocupação - 1
   =========================================================*/
 int acessarFimLista(TLista const * const lista){
-    /*a ocupação sempre está na frente, por isso tenho que
-    fazer lista->ocupacao-1 */
+    if(listaEstaVazia(lista)){
+        printf("Lista vazia!\n");
+        return -1;
+    }
     int const * const p = lista->array + lista->ocupacao - 1;
+    printf("Elemento no fim da lista: ");
     return *p;
 }
 
@@ -137,14 +140,14 @@ void retirarFimlista(TLista * const lista){
         printf("Lista Vazia!\n");
         return;
     }
-
+    printf("O fim da lista foi retirado!\n");
     lista->ocupacao--;
 }
 
 /*=========================================================
     Função que insere um elemento no inicio da lista
     Parametros: 
-        1 - lista - ponteiro para a struct com os dados da lista
+    	1 - lista - ponteiro para a struct com os dados da lista
         2 - elemento - elemento a ser inserido no inicio da lista
   =========================================================*/
 void inserirInicioLista(TLista * const lista, int elemento){
@@ -159,6 +162,9 @@ void inserirInicioLista(TLista * const lista, int elemento){
     } 
     lista->ocupacao++; 
     *aux = elemento; // parou no inicio
+
+    printf("O elemento %d foi inserido no inicio!\n", elemento);
+
 }
 
 /*=========================================================
@@ -166,10 +172,16 @@ void inserirInicioLista(TLista * const lista, int elemento){
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
     Retorno:
-		elemento que está na posição 0
+      - Elemento na posição inicial
   =========================================================*/
 int acessarInicioLista(TLista const * const lista){
-    int const * const p = lista->array; 
+    if(listaEstaVazia(lista)){
+        printf("Lista vazia!\nTem Nada\n");
+        return -1;
+    }
+    
+    int const * const p = lista->array;
+    printf("Elemento no inicio da lista: "); 
     return *p; // retornando elemento da pos 0
 }
 
@@ -177,7 +189,6 @@ int acessarInicioLista(TLista const * const lista){
     Função que retira um elemento no inicio da lista
     Parametros: 
     	1 - lista - ponteiro para a struct com os dados da lista
-      2 - elemento - elemento a ser inserido no inicio da lista
   =========================================================*/
 void retirarIniciolista(TLista * const lista){
     if(listaEstaVazia(lista)){
@@ -189,6 +200,7 @@ void retirarIniciolista(TLista * const lista){
     while(aux != fim){ 
         *aux = *(aux + 1); 
         aux++; 
-    } 
+    }
+    printf("O inicio da lista foi retirado!\n");
     lista->ocupacao--; // recebe um valor abaixo do inicial
 }
