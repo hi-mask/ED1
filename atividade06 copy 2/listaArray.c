@@ -103,13 +103,13 @@ int listaEstaCheia(TLista const * const lista){
         2 - elemento - elemento a ser inserido no fim da lista
   =========================================================*/
 void inserirFimLista(TLista * const lista, int elemento){
-    if(listaEstaCheia(lista)){ 
-        printf("Lista cheia!\n"); 
-        return; 
-    } //Guardo elementos no array na posicao de ocupação
-    int * const p = lista->array; 
-    *(p + lista->ocupacao) = elemento;
-    
+    if(listaEstaCheia(lista)){
+        printf("Lista cheia!\n");
+        return;
+    }
+    /*Guardo elementos no array na posicao de ocupação*/
+    lista->array[lista->ocupacao] = elemento;
+    //Como eu guardei um elemento, preciso incrementar
     lista->ocupacao++;
 }
 
@@ -123,8 +123,7 @@ void inserirFimLista(TLista * const lista, int elemento){
 int acessarFimLista(TLista const * const lista){
     /*a ocupação sempre está na frente, por isso tenho que
     fazer lista->ocupacao-1 */
-    int const * const p = lista->array + lista->ocupacao - 1;
-    return *p;
+    return lista->array[lista->ocupacao - 1];
 }
 
 /*=========================================================
@@ -148,17 +147,19 @@ void retirarFimlista(TLista * const lista){
         2 - elemento - elemento a ser inserido no inicio da lista
   =========================================================*/
 void inserirInicioLista(TLista * const lista, int elemento){
-    if(listaEstaCheia(lista)){ 
-        printf("Lista Cheia!\n"); 
-        return; 
-    } //mover elementos uma casa pro lado
-    int *aux = (lista->array + lista->ocupacao); 
-    while(aux != lista->array){ 
-        *aux = *(aux - 1); // to pegando o elemento da pos anterior 
-        aux--; // andei com o ponteiro pra trás, até chegar no inicio 
-    } 
-    lista->ocupacao++; 
-    *aux = elemento; // parou no inicio
+    if(listaEstaCheia(lista)){
+        printf("Lista Cheia!\n");
+        return;
+    }
+    //mover elementos uma casa pro lado
+    int aux = lista->ocupacao;
+    while(aux != 0){
+        lista->array[aux] = lista->array[aux - 1]; // recebe elemento da pos anterior
+        aux--; // ando uma posição pra tras
+    }
+
+    lista->ocupacao++; // recebe um valor acima do inicial
+    lista->array[0] = elemento; // posicao inicial recebe o elemento
 }
 
 /*=========================================================
@@ -169,8 +170,7 @@ void inserirInicioLista(TLista * const lista, int elemento){
 		elemento que está na posição 0
   =========================================================*/
 int acessarInicioLista(TLista const * const lista){
-    int const * const p = lista->array; 
-    return *p; // retornando elemento da pos 0
+    return lista->array[0]; // retornando elemento da pos 0
 }
 
 /*=========================================================
@@ -182,13 +182,14 @@ int acessarInicioLista(TLista const * const lista){
 void retirarIniciolista(TLista * const lista){
     if(listaEstaVazia(lista)){
         printf("Lista Vazia!\n");
-        return; 
-    } 
-    int *aux = lista->array; 
-    int *fim = (lista->array + lista->ocupacao - 1); 
-    while(aux != fim){ 
-        *aux = *(aux + 1); 
-        aux++; 
-    } 
+        return;
+    }
+
+    int aux = 0;
+
+    while(aux != (lista->ocupacao - 1)){ // vai rodar até bater no antigo ultimo elemento
+        lista->array[aux] = lista->array[aux + 1]; // recebe elemento da pos seguinte
+        aux++; // anda uma posicao  pra frente
+    }
     lista->ocupacao--; // recebe um valor abaixo do inicial
 }
