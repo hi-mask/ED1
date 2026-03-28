@@ -204,3 +204,79 @@ void retirarIniciolista(TLista * const lista){
     printf("O inicio da lista foi retirado!\n");
     lista->ocupacao--; // recebe um valor abaixo do inicial
 }
+
+/*=========================================================
+    Função que insere um elemento na posicao desejada da lista
+    Parametros: 
+        1 - lista - ponteiro para a struct com os dados da lista
+        2 - posicao - posicao desejada da lista para receber o elemento
+        3 - elemento - elemento a ser inserido na posicao desejada da lista
+  =========================================================*/
+void inserirPosicaoLista(TLista * const lista, int posicao, int elemento){
+    if(listaEstaCheia(lista)){
+        printf("Lista Cheia!\n"); 
+        return;
+    }
+    // negativo ou ultrapassa ocupação(unica pos valida)
+    if(posicao < 0 || posicao > lista->ocupacao){
+        printf("Posicao invalida!\n");
+        return;
+    }
+
+    int *aux = (lista->array + lista->ocupacao);
+    while(aux > lista->array + posicao){
+        *aux = *(aux - 1);
+        aux--;
+    }
+    lista->ocupacao++;
+    *aux = elemento;
+    printf("Elemento %d inserido na posicao %d\n", *aux, posicao);
+}
+
+/*=========================================================
+    Função que acessa e retorna o elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+        2 - posicao - posicao desejada da lista a ser exibida
+  =========================================================*/
+int acessarPosicaoLista(TLista const * const lista, int posicao){
+    if(listaEstaVazia(lista)){
+        printf("Lista vazia!\n");
+        return -1;
+    }
+
+    if(posicao < 0 || posicao >= lista->ocupacao){
+        printf("Posicao invalida!\n");
+        return -1;
+    }
+
+    int const * const p = lista->array + posicao;
+    printf("Elemento na posicao %d: ", posicao);
+    return *p;
+}
+
+/*=========================================================
+    Função que retira um elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+        2 - posicao - posicao desejada da lista a ser retirada
+  =========================================================*/
+void retirarPosicaoLista(TLista * const lista, int posicao){
+    if(listaEstaVazia(lista)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    if(posicao < 0 || posicao >= lista->ocupacao){
+        printf("Posicao invalida!\n");
+        return;
+    }
+
+    int *aux = (lista->array + posicao);
+    int *fim = (lista->array + lista->ocupacao - 1);
+    while(aux != fim){
+        *aux = *(aux + 1);
+        aux++;
+    }
+    lista->ocupacao--;
+    printf("Elemento retirado na posicao %d\n", posicao);
+}

@@ -104,4 +104,28 @@ int acessarInicioLista(TLista const * const lista);
     	1 - lista - ponteiro para a struct com os dados da lista
   =========================================================*/
 void retirarIniciolista(TLista * const lista);
+
+/*=========================================================
+    Função que insere um elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - posicao - posicao desejada da lista para receber o elemento
+      3 - elemento - elemento a ser inserido na posicao desejada da lista
+  =========================================================*/
+void inserirPosicaoLista(TLista * const lista, int posicao, int elemento);
+
+/*=========================================================
+    Função que acessa e retorna o elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - posicao - posicao desejada da lista a ser exibida
+  =========================================================*/
+int acessarPosicaoLista(TLista const * const lista, int posicao);
+/*=========================================================
+    Função que retira um elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - posicao - posicao desejada da lista a ser retirada
+  =========================================================*/
+void retirarPosicaoLista(TLista * const lista, int posicao);
 #endif
