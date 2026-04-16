@@ -1,0 +1,165 @@
+#ifndef LISTARRAY_H
+#define LISTARRAY_H
+
+
+typedef struct {
+    int tamanho;
+    int ocupacao;
+    int *array;
+}TLista;
+
+/*=========================================================
+    Função que mostra os dados da struct de uma lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void mostrarDadosLista(TLista const * const lista);
+
+/*=========================================================
+    Função que cria e inicializa uma lista
+    Parametros: 
+		  1 - lista - define a quantidade de elementos que a lista contem
+    	2 - tamanho - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void inicializarLista(TLista * const lista, int tamanho);
+
+/*=========================================================
+    Função para mostrar a lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void mostrarLista(TLista const * const lista);
+
+/*=========================================================
+    Função que libera o espaco de memória usado pela lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void liberarLista(TLista *  const lista);
+
+/*=========================================================
+    Função que verifica se a lista esta vazia
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+	Retorno:
+		!= 0 	- lista esta cheia
+		0 		- lista não esta cheia
+  =========================================================*/
+int listaEstaVazia(TLista const * const lista);
+
+/*=========================================================
+    Função que verifica se a lista esta cheia
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+	Retorno:
+		!= 0 	- lista esta cheia
+		0 		- lista não esta cheia
+  =========================================================*/
+int listaEstaCheia(TLista const * const lista);
+
+/*=========================================================
+    Função que insere um elemento no fim da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - elemento - elemento a ser inserido no fim da lista
+  =========================================================*/
+void inserirFimLista(TLista * const lista, int elemento);
+
+/*=========================================================
+    Função que acessa e retorna o elemento no fim da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+    Retorno:
+		- Elemento na posição ocupação - 1
+  =========================================================*/
+int acessarFimLista(TLista const * const lista);
+
+/*=========================================================
+    Função que retira um elemento no fim da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void retirarFimlista(TLista * const lista);
+
+/*=========================================================
+    Função que insere um elemento no inicio da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - elemento - elemento a ser inserido no inicio da lista
+  =========================================================*/
+void inserirInicioLista(TLista * const lista, int elemento);
+
+/*=========================================================
+    Função que acessa e retorna o elemento no inicio da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+    Retorno:
+      - Elemento na posição inicial
+  =========================================================*/
+int acessarInicioLista(TLista const * const lista);
+
+/*=========================================================
+    Função que retira um elemento no inicio da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void retirarIniciolista(TLista * const lista);
+
+/*=========================================================
+    Função que insere um elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - posicao - posicao desejada da lista para receber o elemento
+      3 - elemento - elemento a ser inserido na posicao desejada da lista
+  =========================================================*/
+void inserirPosicaoLista(TLista * const lista, int posicao, int elemento);
+
+/*=========================================================
+    Função que acessa e retorna o elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - posicao - posicao desejada da lista a ser exibida
+  =========================================================*/
+int acessarPosicaoLista(TLista const * const lista, int posicao);
+/*=========================================================
+    Função que retira um elemento na posicao desejada da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+      2 - posicao - posicao desejada da lista a ser retirada
+  =========================================================*/
+void retirarPosicaoLista(TLista * const lista, int posicao);
+
+/*=========================================================
+    Função que retira um elemento em uma posicao aleatoria da lista
+    Parametros: 
+    	1 - lista - ponteiro para a struct com os dados da lista
+    Retorno:
+		!= 0 	- Sucesso na remoção
+		0 		- lista esta vazia, falha na remoção
+  =========================================================*/
+int removerAleatoriamente(TLista * const lista); // FUNÇÃO FEITA PELA MAL INTERPRETAÇÃO
+
+/*=========================================================
+    Função que busca um elemento na lista e retorna sua posição
+    Parametros: 
+        1 - lista - ponteiro para a struct com os dados da lista
+        2 - elemento - valor a ser buscado na lista
+    Retorno:
+        >= 0   - posição do elemento na lista
+        -1     - elemento não encontrado
+  =========================================================*/
+int realizarBusca(TLista const * const lista, int elemento);
+
+/*=========================================================
+    Função que remove um elemento qualquer da lista
+    Parametros: 
+        1 - lista - ponteiro para a struct com os dados da lista
+        2 - elemento - valor a ser removido da lista
+    Retorno:
+        != 0   - sucesso na remoção
+        0      - lista vazia ou elemento não encontrado
+  =========================================================*/
+int removerElementoQualquer(TLista * const lista, int elemento);
+
+int inserirOrdenadamente(TLista * const lista, int elemento);
+#endif
