@@ -3,7 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-
+/*=========================================================
+    Função para ler o tamanho do conjunto
+    Retorno:
+        valor inteiro correspondente ao tamanho informado
+  =========================================================*/
 int lerTamanho(){
     int tam = 0;
     printf("Tamanho: ");
@@ -12,7 +16,11 @@ int lerTamanho(){
     return tam;
 }
 
-
+/*=========================================================
+    Função para criar um conjunto com valores aleatórios
+    Parametros:
+        1 - conjA - ponteiro para a struct do conjunto
+  =========================================================*/
 void criarConjunto(SET * const conjA){
     conjA->array = malloc(conjA->capacidade * sizeof(int));
     if(conjA->array == NULL){
@@ -30,6 +38,11 @@ void criarConjunto(SET * const conjA){
     }
 }
 
+/*=========================================================
+    Função para exibir os elementos do conjunto
+    Parametros:
+        1 - conjA - ponteiro para a struct do conjunto
+  =========================================================*/
 void exibirConjunto(SET const * const conjA){
     printf("{ ");
     int i = 0;
