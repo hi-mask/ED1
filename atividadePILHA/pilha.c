@@ -51,8 +51,11 @@ int acessarPilha(TPilha const * const pilha){
         2 - elemento - valor a ser inserido na pilha
   =========================================================*/
 void empilhar(TPilha * const pilha, int elemento){
-    // 1º Criar um nó
     TNo * const pNO = malloc(sizeof(TNo));
+    if(pNO == NULL){
+    printf("problema ao alocar memoria!\n");
+    exit(1);
+    }
     // se o malloc retornar null, é porque a memoria acabou, seria bom depois fazer uma verificação
     pNO->dado = elemento;
     pNO->proximo = pilha->topo;

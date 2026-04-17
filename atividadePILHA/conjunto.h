@@ -8,4 +8,8 @@ typedef struct{
 
 int lerTamanho();
 
+void criarConjunto(SET * const conjA);
+
+void exibirConjunto(SET const * const conjA);
+
 #endif
