@@ -80,27 +80,57 @@ int acessarInicio(TFila const * const fila){
     Parametros: 
         1 - fila - ponteiro para a struct com os dados da fila
   =========================================================*/
-void desenfileirar(TFila * const fila){}
+void desenfileirar(TFila * const fila){
+     if(filaestaVazia(fila)){
+        printf("Fila esta vazia!\n");
+        return;
+    }
+    TNo *aux = fila->inicio;
+    fila->inicio = fila->inicio->proximo;
+    free(aux);
+    fila->tamanho--;
 
-/*=========================================================
-    Função para acessar o primeiro elemento da fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
-    Retorno:
-        elemento do início da fila
-  =========================================================*/
-int acessarInicio(TFila const * const fila){}
+    if(fila->inicio == NULL){
+        fila->fim = NULL;
+    }
+}
 
 /*=========================================================
     Função para mostrar os elementos da fila
     Parametros: 
         1 - fila - ponteiro para a struct com os dados da fila
   =========================================================*/
-void mostrarFila(TFila const * const fila){}
+void mostrarFila(TFila const * const fila){
+    printf("Fila = [ ");
+    if(filaestaVazia(fila)){
+        printf(" ]\n");
+        return;
+    }
+    TNo *aux = fila->inicio;
+    while(aux != NULL){
+        if(aux->proximo == NULL){
+            printf("%d ", aux->dado);
+        }
+        else{
+            printf("%d, ", aux->dado);
+        }
+        aux = aux->proximo;
+    }
+    printf("]\n");
+}
 
 /*=========================================================
     Função para liberar toda memória utilizada pela fila
     Parametros: 
         1 - fila - ponteiro para a struct com os dados da fila
   =========================================================*/
-void liberarFila(TFila * const fila){}
+void liberarFila(TFila * const fila){
+    TNo *aux;
+    while(fila->inicio != NULL){
+        aux = fila->inicio;
+        fila->inicio = fila->inicio->proximo;
+        free(aux);
+    }
+    fila->fim = NULL;
+    fila->tamanho = 0;
+}
