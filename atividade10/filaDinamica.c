@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "filaDinamica.h"
+#include "tratamento.h"
 
 /*=========================================================
     Função para inicializar a fila
@@ -34,13 +35,13 @@ int filaestaVazia(TFila const * const fila){
         1 - fila - ponteiro para a struct com os dados da fila
         2 - elemento - valor a ser inserido na fila
   =========================================================*/
-void enfileirar(TFila * const fila, int elemento){
+void enfileirar(TFila * const fila, TAluno const * const aluno){
     TNo *aux = malloc(sizeof(TNo));
     if(aux == NULL){
         printf("Erro ao alocar memoria!\n");
         exit(1);
     }
-    aux->dado = elemento;
+    aux->aluno = *aluno;
     aux->proximo = NULL;
 
     if(filaestaVazia(fila)){
@@ -62,12 +63,18 @@ void enfileirar(TFila * const fila, int elemento){
     Retorno:
         elemento do início da fila
   =========================================================*/
-int acessarInicio(TFila const * const fila){
+void acessarInicio(TFila const * const fila){
     if(filaestaVazia(fila)){
         printf("Fila esta vazia!\n");
-        return -1;
+        return;
     }
-    return fila->inicio->dado;
+
+    printf("\nPrimeiro aluno:\n");
+    printf("Matricula: %s\n",
+    fila->inicio->aluno.numMatricula);
+    printf("Nome: %s\n",
+    fila->inicio->aluno.nome);
+                
 }
 
 /*=========================================================
