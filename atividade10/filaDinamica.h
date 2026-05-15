@@ -1,11 +1,13 @@
 
 #ifndef FILADINAMICA_H
 #define FILADINAMICA_H
+#include "aluno.h"
 
 typedef struct TNo{
     TAluno aluno;
     struct TNo *proximo;
 }TNo;
+
 
 typedef struct{
     int tamanho;
@@ -15,15 +17,15 @@ typedef struct{
 
 /*=========================================================
     Função para inicializar a fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
+    Parametros:
+        1 - fila - ponteiro para a struct da fila
   =========================================================*/
 void inicializarFila(TFila * const fila);
 
 /*=========================================================
     Função para verificar se a fila está vazia
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
+    Parametros:
+        1 - fila - ponteiro para a struct da fila
     Retorno:
         != 0   - fila está vazia
         0      - fila não está vazia
@@ -31,32 +33,32 @@ void inicializarFila(TFila * const fila);
 int filaestaVazia(TFila const * const fila);
 
 /*=========================================================
-    Função para inserir um elemento na fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
-        2 - elemento - valor a ser inserido na fila
+    Função para inserir um aluno no final da fila
+    Parametros:
+        1 - fila  - ponteiro para a struct da fila
+        2 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
 void enfileirar(TFila * const fila, TAluno const * const aluno);
+
 /*=========================================================
-    Função para remover um elemento da fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
+    Função para remover o primeiro elemento da fila
+    Parametros:
+        1 - fila - ponteiro para a struct da fila
   =========================================================*/
 void desenfileirar(TFila * const fila);
 
+
 /*=========================================================
     Função para acessar o primeiro elemento da fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
-    Retorno:
-        elemento do início da fila
+    Parametros:
+        1 - fila - ponteiro para a struct da fila
   =========================================================*/
 void acessarInicio(TFila const * const fila);
 
 /*=========================================================
-    Função para mostrar os elementos da fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
+    Função para mostrar todos os elementos da fila
+    Parametros:
+        1 - fila - ponteiro para a struct da fila
   =========================================================*/
 void mostrarFila(TFila const * const fila);
 

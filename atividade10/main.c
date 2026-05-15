@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "filaDinamica.h"
-#include "tratamento.h"
+#include "tratamentoArquivos.h"
+#include "aluno.h"
 
 int main(void){
 
@@ -11,12 +12,12 @@ int main(void){
     TAluno aluno;
 
     FILE *arquivo = NULL;
-    char *nomeArquivo = "alunos.txt";
+    char *nomeArquivo = "alunosGeral.txt";
     char string[250];
     int linha = 0;
 
     do{
-        int opcao = 0, elemento = 0, posicao = 0;
+        int opcao = 0;
         printf("\n=========== FILA DE ALUNOS ===========\n");
         printf("1. Criar arquivo e cadastrar aluno\n");
         printf("2. Adicionar aluno no final do arquivo\n");
@@ -34,13 +35,13 @@ int main(void){
             if(verificarAberturaArquivo(arquivo))return 1;
 
             printf("Digite matricula e nome:\n");
-            printf("Exemplo: 1999.2.028.1779;EKTO MAKNAMARA DE OLIVEIRA E SILVA\n");
+            printf("Exemplo: 2025.1.0028.0380-8;MARCOS PAULO DA SILVA OLIVEIRA\n\n");
 
             fgets(string, 250, stdin);
             string[strcspn(string, "\n")] = '\0';
             fprintf(arquivo, "%s\n", string);
             fclose(arquivo);
-
+            printf("Aluno cadastrado!\n");
             carregarArquivoNaFila(&fila, nomeArquivo);
             break;
             
@@ -49,13 +50,14 @@ int main(void){
             if(verificarAberturaArquivo(arquivo)) return 1;
 
             printf("Digite matricula e nome:\n");
-            printf("Exemplo: 1999.2.028.1779;EKTO MAKNAMARA DE OLIVEIRA E SILVA\n");
+            printf("Exemplo: 2025.1.0028.0380-8;MARCOS PAULO DA SILVA OLIVEIRA\n\n");
 
             fgets(string, 250, stdin);
             string[strcspn(string, "\n")] = '\0';
             fprintf(arquivo, "%s\n", string);
             fclose(arquivo);
 
+            printf("Aluno cadastrado!\n");
             carregarArquivoNaFila(&fila, nomeArquivo);
             break;
 
@@ -69,17 +71,19 @@ int main(void){
             
             case 5:
             desenfileirar(&fila);
-            return 0;
+            break;
 
             case 6:
-
+            liberarFila(&fila);
+            inicializarFila(&fila);
+            printf("Fila limpa!\n");
             break;
 
             case 7:
             printf("Saindo...\n");
             liberarFila(&fila);
             return 0;
-            break;
+
             default:
             printf("\nResposta invalida!\n\n");
         }

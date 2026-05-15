@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "filaDinamica.h"
-#include "tratamento.h"
+#include "tratamentoArquivos.h"
+#include "aluno.h"
 
 /*=========================================================
     Função para inicializar a fila
@@ -56,12 +57,11 @@ void enfileirar(TFila * const fila, TAluno const * const aluno){
     fila->tamanho++;
 }
 
+
 /*=========================================================
     Função para acessar o primeiro elemento da fila
-    Parametros: 
-        1 - fila - ponteiro para a struct com os dados da fila
-    Retorno:
-        elemento do início da fila
+    Parametros:
+        1 - fila - ponteiro para a struct da fila
   =========================================================*/
 void acessarInicio(TFila const * const fila){
     if(filaestaVazia(fila)){
@@ -103,22 +103,25 @@ void desenfileirar(TFila * const fila){
         1 - fila - ponteiro para a struct com os dados da fila
   =========================================================*/
 void mostrarFila(TFila const * const fila){
-    printf("Fila = [ ");
     if(filaestaVazia(fila)){
-        printf(" ]\n");
+        printf("Fila vazia!\n");
         return;
     }
+
     TNo *aux = fila->inicio;
+    int linha = 1;
+
+    printf("\n=========== FILA ===========\n");
     while(aux != NULL){
-        if(aux->proximo == NULL){
-            printf("%d ", aux->dado);
-        }
-        else{
-            printf("%d, ", aux->dado);
-        }
+        printf("\nAluno %d\n", linha);
+        printf("Matricula: %s\n", aux->aluno.numMatricula);
+        printf("Nome: %s\n", aux->aluno.nome);
+
+        printf("======================================\n");
         aux = aux->proximo;
+        linha++;
     }
-    printf("]\n");
+    printf("Total de alunos: %d\n", fila->tamanho);
 }
 
 /*=========================================================
