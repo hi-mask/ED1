@@ -46,7 +46,7 @@ int LLDEEstaVazia(TLLDE const * const lista){
   =========================================================*/
 void mostrarLista(TLLDE const * const lista, int direcao){
     if(LLDEEstaVazia(lista)){
-        printf("\nLista = [ ]\n");
+        printf("\nA lista esta vazia\nLista = [ ]\n");
         return;
     }
 
@@ -151,6 +151,147 @@ void RetirarNoInicioDaLLDE(TLLDE * const lista){
     lista->tamanho--;
 
     printf("\nO elemento do inicio da lista saiu!\n");
+
+}
+
+/*=========================================================
+    Função para inserir um elemento no fim da lista
+    Parametros:
+        1 - lista - ponteiro para a struct da lista
+        2 - elemento - valor a ser inserido
+  =========================================================*/
+void inserirNoFimDaLLDE(TLLDE * const lista, int elemento){
+    TNo * pAux = malloc(sizeof(TNo));
+    verificarMalloc(pAux);
+    
+    inicializarNo(pAux, elemento);
+
+    if(LLDEEstaVazia(lista)){
+        lista->inicio = pAux;
+        lista->fim = pAux;
+        lista->tamanho++;
+        return;
+    }
+    
+    lista->fim->proximo = pAux;
+    pAux->anterior = lista->fim;
+    lista->fim = pAux;
+    lista->tamanho++;
+}
+
+/*=========================================================
+    Função para acessar o último elemento da lista
+    Parametros:
+        1 - lista - ponteiro para a struct da lista
+    Retorno:
+        valor armazenado no início da lista
+  =========================================================*/
+int acessarFimDaLLDE(TLLDE const * const lista){
+    if(LLDEEstaVazia(lista)){
+        printf("A lista esta vazia!\n");
+        return -1;
+    }
+    
+    return lista->fim->dado;
+}
+
+/*=========================================================
+    Função para remover o último nó da lista
+    Parametros:
+        1 - lista - ponteiro para a struct da lista
+  =========================================================*/
+void RetirarNoFimDaLLDE(TLLDE * const lista){
+    if(LLDEEstaVazia(lista)){
+        printf("A lista esta vazia!\n");
+        return;
+    }
+
+    if(lista->tamanho == 1){
+        free(lista->fim);
+        lista->inicio = NULL;
+        lista->fim = NULL;
+        lista->tamanho--;
+        printf("\nO elemento do fim da lista saiu!\n");
+        return;
+    }
+
+    TNo * pAux = malloc(sizeof(TNo));
+    verificarMalloc(pAux);
+
+    pAux = lista->fim;
+    lista->fim = pAux->anterior;
+
+    free(pAux);
+    lista->fim->proximo = NULL;
+    lista->tamanho--;
+    printf("\nO elemento do fim da lista saiu!\n");
+}
+
+/*=========================================================
+    Função para inserir um elemento em uma posição da lista
+    Parametros:
+        1 - lista - ponteiro para a struct da lista
+        2 - pos - posição onde o elemento será inserido
+        3 - elemento - valor a ser inserido
+  =========================================================*/
+void inserirPosicao(TLLDE * const lista, int pos, int elemento){
+    if(pos < 0 || pos > lista->tamanho){
+        printf("\nPosicao Invalida!\n");
+        return;
+    }
+
+    if(pos == 0){
+        inserirNoInicioDaLLDE(lista, elemento);
+        return;
+    }
+
+    if(pos == lista->tamanho){
+        inserirNoFimDaLLDE(lista, elemento);
+        return;
+    }
+
+    TNo * pAuxElemento = malloc(sizeof(TNo));
+    verificarMalloc(pAuxElemento);
+
+    inicializarNo(pAuxElemento, elemento);
+
+    TNo * pAuxAndarilho = malloc(sizeof(TNo));
+    verificarMalloc(pAuxAndarilho);
+
+    pAuxAndarilho = lista->inicio;
+
+    int i = 0;
+    while(i < pos - 1){
+        pAuxAndarilho = pAuxAndarilho->proximo;
+        i++;
+    }
+
+    pAuxElemento->proximo = pAuxAndarilho->proximo;
+    pAuxAndarilho->proximo = pAuxElemento;
+
+    lista->tamanho++;
+}
+
+/*=========================================================
+    Função para acessar o elemento em uma posição da lista
+    Parametros:
+        1 - lista - ponteiro para a struct da lista
+        2 - pos - posição desejada
+    Retorno:
+        valor armazenado na posição informada
+        -1 se for inválido
+  =========================================================*/
+int acessarPosicao(TLLDE const * const lista, int pos){
+
+}
+
+/*=========================================================
+    Função para remover o nó na posicao solicitada da lista
+    Parametros:
+        1 - lista - ponteiro para a struct da lista
+        2 - pos - posição desejada
+  =========================================================*/
+void retirarPosicao(TLLDE * const lista, int pos){
 
 }
 
