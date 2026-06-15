@@ -6,26 +6,99 @@ int main(void){
     
     TLLDE lista;
     inicializarLLDE(&lista);
+    
+    do{
+        int opcao = -1;
+        int posicao = -1;
+        int elemento = -1;
+        printf("\n================== MENU ==================\n");
+        printf("1. Inserir no inicio\n");
+        printf("2. Acessar na inicio\n");
+        printf("3. Retirar na inicio\n");
+        printf("4. Inserir no fim\n");
+        printf("5. Acessar na fim\n");
+        printf("6. Retirar na fim\n");
+        printf("7. Inserir na Posicao\n");
+        printf("8. Acessar na Posicao\n");
+        printf("9. Retirar na Posicao\n");
+        printf("10. Mostrar Lista\n");
+        printf("0. Sair\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+        getchar();
 
-    // 1 é do inicio p fim, 0 é do fim p inicio
-    inserirNoInicioDaLLDE(&lista, 40);
-    inserirNoFimDaLLDE(&lista, 50);
-    inserirNoInicioDaLLDE(&lista, 30);
-    inserirNoFimDaLLDE(&lista, 60);
-    mostrarLista(&lista, 0);
-    mostrarLista(&lista, 1);
-    printf("\n%d\n", acessarInicioDaLLDE(&lista));
-    printf("\n%d\n", acessarFimDaLLDE(&lista));
-    RetirarNoInicioDaLLDE(&lista);
-    RetirarNoFimDaLLDE(&lista);
-    mostrarLista(&lista, 0);
-    mostrarLista(&lista, 1);
-    RetirarNoInicioDaLLDE(&lista);
-    RetirarNoFimDaLLDE(&lista);
-    mostrarLista(&lista, 0);
-    mostrarLista(&lista, 1);
-    inserirNoInicioDaLLDE(&lista, 98);
-    inserirNoFimDaLLDE(&lista, 99);
-    mostrarLista(&lista, 0);
-    mostrarLista(&lista, 1);
+        switch(opcao){
+            case 1:
+            printf("\nElemento:\n");
+            scanf("%d", &elemento);
+            getchar();
+            inserirNoInicioDaLLDE(&lista, elemento);
+            break;
+
+            case 2:
+            printf("\n%d\n", acessarInicioDaLLDE(&lista));
+            break;
+
+            case 3:
+            RetirarNoInicioDaLLDE(&lista);
+            break;
+                
+            case 4:
+            printf("\nElemento:\n");
+            scanf("%d", &elemento);
+            getchar();
+            inserirNoInicioDaLLDE(&lista, elemento);
+            break;
+
+            case 5:
+            printf("\n%d\n", acessarFimDaLLDE(&lista));
+            break;
+
+            case 6:
+            RetirarNoFimDaLLDE(&lista);
+            break;
+
+            case 7:
+            printf("\nPosicao:\n");
+            scanf("%d", &posicao);
+            printf("\nElemento:\n");
+            scanf("%d", &elemento);
+            inserirPosicao(&lista, posicao, elemento);
+            break;
+
+            case 8:
+            printf("\nPosicao:\n");
+            scanf("%d", &posicao);
+            printf("\n%d\n", acessarPosicao(&lista, posicao));
+            break;
+
+            case 9:
+            printf("\nPosicao:\n");
+            scanf("%d", &posicao);
+            retirarPosicao(&lista, posicao);
+            break;
+
+            case 10:
+            int direcao = -1;
+            printf("\nDirecao desejada\n1. Inicio->Fim\n0. Fim->Inicio\n");
+            printf("Opcao: ");
+            scanf("%d", &direcao);
+            getchar();
+            if(direcao){
+                mostrarLista(&lista, 1);
+            }
+            else{
+                mostrarLista(&lista, 0);
+            }
+            break;
+
+            case 0:
+            printf("\nSaindo...\n");
+            return 0;
+
+            default:
+            printf("\nOpcao invalida!\n");
+
+        }
+    }while(1);
 }

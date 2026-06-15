@@ -42,7 +42,7 @@ int LLDEEstaVazia(TLLDE const * const lista){
     Parametros:
         1 - lista - ponteiro para a struct da lista
         2 - direcao - direcao na qual a lista sera mostrada
-        do inicio p fim ou do fim p inicio
+        direção == 1: inicio->fim | direção == 0: fim->inicio)
   =========================================================*/
 void mostrarLista(TLLDE const * const lista, int direcao){
     if(LLDEEstaVazia(lista)){
@@ -235,7 +235,7 @@ void RetirarNoFimDaLLDE(TLLDE * const lista){
         3 - elemento - valor a ser inserido
   =========================================================*/
 void inserirPosicao(TLLDE * const lista, int pos, int elemento){
-    if(pos < 0 || pos > lista->tamanho){
+   if(pos < 0 || pos > lista->tamanho){
         printf("\nPosicao Invalida!\n");
         return;
     }
@@ -244,7 +244,6 @@ void inserirPosicao(TLLDE * const lista, int pos, int elemento){
         inserirNoInicioDaLLDE(lista, elemento);
         return;
     }
-
     if(pos == lista->tamanho){
         inserirNoFimDaLLDE(lista, elemento);
         return;
@@ -258,19 +257,20 @@ void inserirPosicao(TLLDE * const lista, int pos, int elemento){
     TNo * pAuxAndarilho = malloc(sizeof(TNo));
     verificarMalloc(pAuxAndarilho);
 
-    pAuxAndarilho = lista->inicio;
-
-    int i = 0;
-    while(i < pos - 1){
-        pAuxAndarilho = pAuxAndarilho->proximo;
-        i++;
+    if(pos <= lista->tamanho / 2){
+        pAuxAndarilho = andarDoInicioAtePosicao(lista->inicio, pos);
     }
-
+    else{
+        pAuxAndarilho = andarDoFimAtePosicao(lista->fim, pos, lista->tamanho);
+    }
+    pAuxElemento->anterior = pAuxAndarilho;
     pAuxElemento->proximo = pAuxAndarilho->proximo;
     pAuxAndarilho->proximo = pAuxElemento;
+    pAuxElemento->proximo->anterior = pAuxElemento;
 
     lista->tamanho++;
 }
+
 
 /*=========================================================
     Função para acessar o elemento em uma posição da lista
@@ -282,7 +282,34 @@ void inserirPosicao(TLLDE * const lista, int pos, int elemento){
         -1 se for inválido
   =========================================================*/
 int acessarPosicao(TLLDE const * const lista, int pos){
+if(LLDEEstaVazia(lista)){
+        printf("\nLista vazia!\n");
+        return -1;
+    }
+    if(pos < 0 || pos >= lista->tamanho){
+        printf("\nPosicao Invalida!\n");
+        return -1;
+    }
+    if(pos == 0){
+        return acessarInicioDaLLDE(lista);
+    }
+    if(pos == lista->tamanho-1){
+        return acessarFimDaLLDE(lista);
+    }
 
+    TNo * pAuxAndarilho = malloc(sizeof(TNo));
+    verificarMalloc(pAuxAndarilho);
+
+    pAuxAndarilho = lista->inicio;
+
+    if(pos <= lista->tamanho / 2){
+        pAuxAndarilho = andarDoInicioAtePosicao(lista->inicio, pos);
+    }
+    else{
+        pAuxAndarilho = andarDoFimAtePosicao(lista->fim, pos, lista->tamanho);
+    }
+
+    return pAuxAndarilho->proximo->dado;
 }
 
 /*=========================================================
@@ -292,7 +319,41 @@ int acessarPosicao(TLLDE const * const lista, int pos){
         2 - pos - posição desejada
   =========================================================*/
 void retirarPosicao(TLLDE * const lista, int pos){
+    if(LLDEEstaVazia(lista)){
+        printf("\nLista vazia!\n");
+        return;
+    }
+    if(pos < 0 || pos >= lista->tamanho){
+        printf("\nPosicao Invalida!\n");
+        return;
+    }
+    if(pos == 0){
+        RetirarNoInicioDaLLDE(lista);
+        return;
+    }
+    if(pos == lista->tamanho-1){
+        RetirarNoFimDaLLDE(lista);
+        return;
+    }
 
+    TNo * pAuxAndarilho = malloc(sizeof(TNo));
+    verificarMalloc(pAuxAndarilho);
+
+    if(pos <= lista->tamanho / 2){
+        pAuxAndarilho = andarDoInicioAtePosicao(lista->inicio, pos);
+    }
+    else{
+        pAuxAndarilho = andarDoFimAtePosicao(lista->fim, pos, lista->tamanho);
+    }
+
+    TNo * pAuxTemp = malloc(sizeof(TNo));
+    verificarMalloc(pAuxTemp);
+
+    pAuxTemp = pAuxAndarilho->proximo;
+    pAuxAndarilho->proximo = pAuxTemp->proximo;
+    pAuxTemp->proximo->anterior = pAuxAndarilho;
+    free(pAuxTemp);
+    lista->tamanho--;
 }
 
 /*=========================================================
@@ -306,4 +367,57 @@ void verificarMalloc(TNo const * const no){
         printf("Erro ao alocar memoria!\n");
         exit(1);
     }
+}
+
+/*=========================================================
+    Função para percorrer a lista a partir do início até
+    a posição desejada
+    Parametros:
+        1 - no - ponteiro para o nó inicial da busca
+        2 - pos - posição desejada
+    Retorno:
+        Ponteiro para o nó imediatamente anterior à posição
+        desejada
+  =========================================================*/
+TNo * andarDoInicioAtePosicao(TNo *no, int pos){
+    int i = 0;
+    for(i = 0; i < pos - 1; i++){
+        no = no->proximo;
+    }
+    return no;
+}
+
+/*=========================================================
+    Função para percorrer a lista a partir do fim até
+    a posição desejada
+    Parametros:
+        1 - no - ponteiro para o último nó da lista
+        2 - pos - posição desejada
+        3 - tamanho - quantidade de elementos da lista
+    Retorno:
+        Ponteiro para o nó imediatamente anterior à posição
+        desejada
+  =========================================================*/
+TNo * andarDoFimAtePosicao(TNo *no, int pos, int tamanho){
+    int i = 0;
+    for(i = tamanho; i > pos; i--){
+        no = no->anterior;
+    }
+    return no;
+}
+
+/*=========================================================
+    Função para liberar toda memória utilizada pela lista
+    Parametros: 
+        1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void liberarLista(TLLDE * const lista){
+    TNo *pAux;
+    while(lista->inicio != NULL){
+        pAux = lista->inicio;
+        lista->inicio = lista->inicio->proximo;
+        free(pAux);
+    }
+    lista->fim = NULL;
+    lista->tamanho = 0;
 }

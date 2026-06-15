@@ -43,7 +43,7 @@ int LLDEEstaVazia(TLLDE const * const lista);
     Parametros:
         1 - lista - ponteiro para a struct da lista
         2 - direcao - direcao na qual a lista sera mostrada
-        do inicio p fim ou do fim p inicio
+        direção == 1: inicio->fim | direção == 0: fim->inicio)
   =========================================================*/
 void mostrarLista(TLLDE const * const lista, int direcao);
 
@@ -130,4 +130,36 @@ void retirarPosicao(TLLDE * const lista, int pos);
         1 - no - ponteiro retornado pela alocação dinâmica
   =========================================================*/
 void verificarMalloc(TNo const * const no);
+
+/*=========================================================
+    Função para percorrer a lista a partir do início até
+    a posição desejada
+    Parametros:
+        1 - no - ponteiro para o nó inicial da busca
+        2 - pos - posição desejada
+    Retorno:
+        Ponteiro para o nó imediatamente anterior à posição
+        desejada
+  =========================================================*/
+TNo * andarDoInicioAtePosicao(TNo *no, int pos);
+
+/*=========================================================
+    Função para percorrer a lista a partir do fim até
+    a posição desejada
+    Parametros:
+        1 - no - ponteiro para o último nó da lista
+        2 - pos - posição desejada
+        3 - tamanho - quantidade de elementos da lista
+    Retorno:
+        Ponteiro para o nó imediatamente anterior à posição
+        desejada
+  =========================================================*/
+TNo * andarDoFimAtePosicao(TNo *no, int pos, int tamanho);
+
+/*=========================================================
+    Função para liberar toda memória utilizada pela lista
+    Parametros: 
+        1 - lista - ponteiro para a struct com os dados da lista
+  =========================================================*/
+void liberarLista(TLLDE * const lista);
 #endif

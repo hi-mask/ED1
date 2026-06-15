@@ -8,7 +8,6 @@ typedef struct TNo{
     struct TNo *proximo;
 }TNo;
 
-
 typedef struct{
     int tamanho;
     TNo *inicio;

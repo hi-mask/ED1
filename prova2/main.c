@@ -20,16 +20,18 @@ int main(void){
         printf("1. Inserir no inicio\n");
         printf("2. Acessar na inicio\n");
         printf("3. Retirar na inicio\n");
-        printf("1. Inserir no fim\n");
-        printf("2. Acessar na fim\n");
-        printf("3. Retirar na fim\n");
+        printf("4. Inserir no fim\n");
+        printf("5. Acessar na fim\n");
+        printf("6. Retirar na fim\n");
         printf("7. Inserir na Posicao\n");
         printf("8. Acessar na Posicao\n");
         printf("9. Retirar na Posicao\n");
+        printf("10. Mostrar Lista\n");
         printf("0. Sair\n");
         scanf("%d", &opcao);
+        getchar();
 
-    switch(opcao){
+        switch(opcao){
             case 1:
             printf("Elemento:\n");
             scanf("%d", &elemento);
@@ -44,19 +46,20 @@ int main(void){
             case 3:
             RetirarNoInicioDaLLDE(&lista);
             break;
-            
+                
             case 4:
             printf("Elemento:\n");
             scanf("%d", &elemento);
             getchar();
+            inserirNoInicioDaLLDE(&lista, elemento);
             break;
 
             case 5:
-
+            printf("\n%d\n", acessarFimDaLLDE(&lista));
             break;
 
             case 6:
-            
+            RetirarNoFimDaLLDE(&lista);
             break;
 
             case 7:
@@ -79,6 +82,19 @@ int main(void){
             retirarPosicao(&lista, posicao);
             break;
 
+            case 10:
+            int direcao = -1;
+            printf("Direcao desejada\n1. Inicio->Fim\n0. Fim->Inicio\n");
+            scanf("%d", &direcao);
+            getchar();
+            if(direcao){
+                mostrarLista(&lista, 1);
+            }
+            else{
+                mostrarLista(&lista, 0);
+            }
+            break;
+
             case 0:
             printf("\nSaindo...\n");
             return 0;
@@ -86,9 +102,9 @@ int main(void){
             default:
             printf("Opcao invalida!\n");
 
+        }
     }while(1);
 }
-
 //tenho que inserir ordenadamente
 // ordenar por partes, exemplo, exibe 30 dados e pergunta se quer prosseguir
 
