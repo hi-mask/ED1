@@ -1,8 +1,9 @@
 #ifndef LISTADUPLAMENTEENCADEADA_H
 #define LISTADUPLAMENTEENCADEADA_H
+#include "aluno.h"
 
 typedef struct TNo{
-    int dado;
+    TAluno *atual;
     struct TNo *proximo;
     struct TNo *anterior;
 }TNo;
@@ -19,10 +20,10 @@ typedef struct{
         1 - no - ponteiro para o nó a ser inicializado
         2 - dado - valor que será armazenado no nó
   =========================================================*/
-void inicializarNo(TNo * const no, int dado);
+void inicializarNo(TNo * const no, TAluno * const aluno);
 
 /*=========================================================
-    Função para inicializar a lista simplesmente encadeada
+    Função para inicializar a lista duplamente encadeada
     Parametros:
         1 - lista - ponteiro para a struct da lista
   =========================================================*/
@@ -51,18 +52,18 @@ void mostrarLista(TLLDE const * const lista, int direcao);
     Função para inserir um elemento no início da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
-        2 - elemento - valor a ser inserido
+        2 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
-void inserirNoInicioDaLLDE(TLLDE * const lista, int elemento);
+void inserirNoInicioDaLLDE(TLLDE * const lista, TAluno * const aluno);
 
 /*=========================================================
     Função para acessar o primeiro elemento da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
     Retorno:
-        valor armazenado no início da lista
+        Ponteiro para o aluno armazenado no início da lista
   =========================================================*/
-int acessarInicioDaLLDE(TLLDE const * const lista);
+TAluno * acessarInicioDaLLDE(TLLDE const * const lista);
 
 /*=========================================================
     Função para remover o primeiro nó da lista
@@ -75,18 +76,18 @@ void RetirarNoInicioDaLLDE(TLLDE * const lista);
     Função para inserir um elemento no fim da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
-        2 - elemento - valor a ser inserido
+        2 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
-void inserirNoFimDaLLDE(TLLDE * const lista, int elemento);
+void inserirNoFimDaLLDE(TLLDE * const lista, TAluno * const aluno);
 
 /*=========================================================
     Função para acessar o último elemento da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
     Retorno:
-        valor armazenado no início da lista
+        Ponteiro para o aluno armazenado no fim da lista
   =========================================================*/
-int acessarFimDaLLDE(TLLDE const * const lista);
+TAluno * acessarFimDaLLDE(TLLDE const * const lista);
 
 /*=========================================================
     Função para remover o último nó da lista
@@ -100,9 +101,9 @@ void RetirarNoFimDaLLDE(TLLDE * const lista);
     Parametros:
         1 - lista - ponteiro para a struct da lista
         2 - pos - posição onde o elemento será inserido
-        3 - elemento - valor a ser inserido
+        3 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
-void inserirPosicao(TLLDE * const lista, int pos, int elemento);
+void inserirPosicao(TLLDE * const lista, int pos, TAluno * const aluno);
 
 /*=========================================================
     Função para acessar o elemento em uma posição da lista
@@ -110,10 +111,10 @@ void inserirPosicao(TLLDE * const lista, int pos, int elemento);
         1 - lista - ponteiro para a struct da lista
         2 - pos - posição desejada
     Retorno:
-        valor armazenado na posição informada
-        -1 se for inválido
+        - Ponteiro para o aluno armazenado na posição informada
+        - NULL caso a posição seja inválida
   =========================================================*/
-int acessarPosicao(TLLDE const * const lista, int pos);
+TAluno * acessarPosicao(TLLDE const * const lista, int pos);
 
 /*=========================================================
     Função para remover o nó na posicao solicitada da lista
@@ -162,4 +163,31 @@ TNo * andarDoFimAtePosicao(TNo *no, int pos, int tamanho);
         1 - lista - ponteiro para a struct com os dados da lista
   =========================================================*/
 void liberarLista(TLLDE * const lista);
+
+/*=========================================================
+    Função para exibir os dados do aluno armazenado em um nó
+    Parâmetros:
+        1 - no - ponteiro para o nó que contém o aluno
+  =========================================================*/
+void exibirAluno(TNo const * const no);
+
+/*=========================================================
+    Função para verificar se o usuário deseja continuar
+    exibindo os elementos da lista
+    Retorno:
+        != 0 - continua a exibir
+        0 - interrompe a exibição
+  =========================================================*/
+int continuarExibindo();
+
+/*=========================================================
+    Função para receber os dados de um aluno pelo teclado
+    Parametros:
+        Nenhum
+    Retorno:
+        Ponteiro para a struct TAluno preenchida com os
+        dados informados pelo usuário
+  =========================================================*/
+TAluno * receberDadosDoTeclado();
+
 #endif

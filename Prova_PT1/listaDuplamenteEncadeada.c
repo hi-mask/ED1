@@ -1,21 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "listaDuplamenteEncadeada.h"
-
+#include "aluno.h"
+#include <string.h>
+#define TAM_STRING 250
 /*=========================================================
     Função para inicializar um nó da lista
     Parametros:
         1 - no - ponteiro para o nó a ser inicializado
         2 - dado - valor que será armazenado no nó
   =========================================================*/
-void inicializarNo(TNo * const no, int dado){
-    no->dado = dado;
+void inicializarNo(TNo * const no, TAluno * aluno){
+    no->atual = aluno;
     no->proximo = NULL;
     no->anterior = NULL;
 }
 
 /*=========================================================
-    Função para inicializar a lista simplesmente encadeada
+    Função para inicializar a lista duplamente encadeada
     Parametros:
         1 - lista - ponteiro para a struct da lista
   =========================================================*/
@@ -53,45 +55,74 @@ void mostrarLista(TLLDE const * const lista, int direcao){
     TNo * pAux = malloc(sizeof(TNo));
     verificarMalloc(pAux);
 
+    int indiceAluno = 0;
+    int contador = 0;
+    int totalExibidos = 0;
+    char continuar;
+
     printf("\nLista = [ ");
+
     if(direcao){
     pAux = lista->inicio;
+    
         while(pAux != NULL){
-            printf("%d", pAux->dado);
-            if(pAux->proximo != NULL){
-                printf(" | ");
-            }
+            printf("\n\n================== Estudante [%d] ==================\n", indiceAluno);
+            exibirAluno(pAux);
 
-        pAux = pAux->proximo;
+            indiceAluno++;
+            pAux = pAux->proximo;
+            contador++;
+            totalExibidos++;
+
+            if(contador == 30 && pAux != NULL){
+                printf("\nExibidos [%d / %d] alunos | ",
+                totalExibidos, lista->tamanho);
+                if(continuarExibindo() == 1){
+                    return;
+                }
+                contador = 0;
+            }
         }
     }
     else{
         pAux = lista->fim;
-        while(pAux != NULL){
-            printf("%d", pAux->dado);
-            if(pAux->anterior != NULL){
-                printf(" | ");
-            }
+        indiceAluno = lista->tamanho - 1;
 
-        pAux = pAux->anterior;
+        while(pAux != NULL){
+            printf("\n\n================== Estudante [%d] ==================\n", indiceAluno);
+            exibirAluno(pAux);
+
+            indiceAluno--;
+            pAux = pAux->anterior;
+            contador++;
+            totalExibidos++;
+
+            if(contador == 30 && pAux != NULL){
+                printf("\nExibidos [%d / %d] alunos | ",
+                totalExibidos, lista->tamanho);
+                if(continuarExibindo() == 1){
+                    return;
+                }
+                contador = 0;
+            }
         }
     }
-    printf(" ]\n");
 
-    printf("Total de elementos na lista: %d\n", lista->tamanho);
+    printf("\n]\n");
+    printf("\nFim da lista. Total de alunos: %d\n", lista->tamanho);
 }
 
 /*=========================================================
     Função para inserir um elemento no início da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
-        2 - elemento - valor a ser inserido
+        2 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
-void inserirNoInicioDaLLDE(TLLDE * const lista, int elemento){
+void inserirNoInicioDaLLDE(TLLDE * const lista, TAluno * const aluno){
     TNo * pAux = malloc(sizeof(TNo));
     verificarMalloc(pAux);
 
-    inicializarNo(pAux, elemento);
+    inicializarNo(pAux, aluno);
 
     if(LLDEEstaVazia(lista)){
         lista->inicio = pAux;
@@ -99,7 +130,7 @@ void inserirNoInicioDaLLDE(TLLDE * const lista, int elemento){
         lista->tamanho++;
         return;
     }
-
+    
     pAux->proximo = lista->inicio;
     lista->inicio->anterior = pAux;
     lista->inicio = pAux;
@@ -111,14 +142,14 @@ void inserirNoInicioDaLLDE(TLLDE * const lista, int elemento){
     Parametros:
         1 - lista - ponteiro para a struct da lista
     Retorno:
-        valor armazenado no início da lista
+        Ponteiro para o aluno armazenado no início da lista
   =========================================================*/
-int acessarInicioDaLLDE(TLLDE const * const lista){
+TAluno * acessarInicioDaLLDE(TLLDE const * const lista){
     if(LLDEEstaVazia(lista)){
         printf("\nA lista esta vazia!\n");
-        return -1;
+        return NULL;
     }
-    return lista->inicio->dado;
+    return lista->inicio->atual;
 }
 
 /*=========================================================
@@ -140,7 +171,7 @@ void RetirarNoInicioDaLLDE(TLLDE * const lista){
         free(lista->inicio);
         lista->inicio = NULL;
         lista->fim = NULL;
-        printf("\nO elemento do inicio da lista saiu!\n");
+        printf("\nO(a) aluno(a) no inicio da lista saiu!\n");
         return;
     }
 
@@ -150,7 +181,7 @@ void RetirarNoInicioDaLLDE(TLLDE * const lista){
     free(pAux);
     lista->tamanho--;
 
-    printf("\nO elemento do inicio da lista saiu!\n");
+    printf("\nO(a) aluno(a) no inicio da lista saiu!\n");
 
 }
 
@@ -158,13 +189,13 @@ void RetirarNoInicioDaLLDE(TLLDE * const lista){
     Função para inserir um elemento no fim da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
-        2 - elemento - valor a ser inserido
+        2 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
-void inserirNoFimDaLLDE(TLLDE * const lista, int elemento){
+void inserirNoFimDaLLDE(TLLDE * const lista, TAluno * const aluno){
     TNo * pAux = malloc(sizeof(TNo));
     verificarMalloc(pAux);
     
-    inicializarNo(pAux, elemento);
+    inicializarNo(pAux, aluno);
 
     if(LLDEEstaVazia(lista)){
         lista->inicio = pAux;
@@ -184,15 +215,15 @@ void inserirNoFimDaLLDE(TLLDE * const lista, int elemento){
     Parametros:
         1 - lista - ponteiro para a struct da lista
     Retorno:
-        valor armazenado no início da lista
+        Ponteiro para o aluno armazenado no fim da lista
   =========================================================*/
-int acessarFimDaLLDE(TLLDE const * const lista){
+TAluno * acessarFimDaLLDE(TLLDE const * const lista){
     if(LLDEEstaVazia(lista)){
         printf("A lista esta vazia!\n");
-        return -1;
+        return NULL;
     }
     
-    return lista->fim->dado;
+    return lista->fim->atual;
 }
 
 /*=========================================================
@@ -211,7 +242,7 @@ void RetirarNoFimDaLLDE(TLLDE * const lista){
         lista->inicio = NULL;
         lista->fim = NULL;
         lista->tamanho--;
-        printf("\nO elemento do fim da lista saiu!\n");
+        printf("\nO(a) aluno(a) no fim da lista saiu!\n");
         return;
     }
 
@@ -224,7 +255,7 @@ void RetirarNoFimDaLLDE(TLLDE * const lista){
     free(pAux);
     lista->fim->proximo = NULL;
     lista->tamanho--;
-    printf("\nO elemento do fim da lista saiu!\n");
+    printf("\nO(a) aluno(a) no fim da lista saiu!\n");
 }
 
 /*=========================================================
@@ -232,27 +263,27 @@ void RetirarNoFimDaLLDE(TLLDE * const lista){
     Parametros:
         1 - lista - ponteiro para a struct da lista
         2 - pos - posição onde o elemento será inserido
-        3 - elemento - valor a ser inserido
+        3 - aluno - ponteiro para o aluno a ser inserido
   =========================================================*/
-void inserirPosicao(TLLDE * const lista, int pos, int elemento){
+void inserirPosicao(TLLDE * const lista, int pos, TAluno * const aluno){
    if(pos < 0 || pos > lista->tamanho){
         printf("\nPosicao Invalida!\n");
         return;
     }
 
     if(pos == 0){
-        inserirNoInicioDaLLDE(lista, elemento);
+        inserirNoInicioDaLLDE(lista, aluno);
         return;
     }
     if(pos == lista->tamanho){
-        inserirNoFimDaLLDE(lista, elemento);
+        inserirNoFimDaLLDE(lista, aluno);
         return;
     }
 
     TNo * pAuxElemento = malloc(sizeof(TNo));
     verificarMalloc(pAuxElemento);
 
-    inicializarNo(pAuxElemento, elemento);
+    inicializarNo(pAuxElemento, aluno);
 
     TNo * pAuxAndarilho = malloc(sizeof(TNo));
     verificarMalloc(pAuxAndarilho);
@@ -271,24 +302,23 @@ void inserirPosicao(TLLDE * const lista, int pos, int elemento){
     lista->tamanho++;
 }
 
-
 /*=========================================================
     Função para acessar o elemento em uma posição da lista
     Parametros:
         1 - lista - ponteiro para a struct da lista
         2 - pos - posição desejada
     Retorno:
-        valor armazenado na posição informada
-        -1 se for inválido
+        - Ponteiro para o aluno armazenado na posição informada
+        - NULL caso a posição seja inválida
   =========================================================*/
-int acessarPosicao(TLLDE const * const lista, int pos){
-if(LLDEEstaVazia(lista)){
+TAluno * acessarPosicao(TLLDE const * const lista, int pos){
+    if(LLDEEstaVazia(lista)){
         printf("\nLista vazia!\n");
-        return -1;
+        return NULL;
     }
     if(pos < 0 || pos >= lista->tamanho){
         printf("\nPosicao Invalida!\n");
-        return -1;
+        return NULL;
     }
     if(pos == 0){
         return acessarInicioDaLLDE(lista);
@@ -309,7 +339,7 @@ if(LLDEEstaVazia(lista)){
         pAuxAndarilho = andarDoFimAtePosicao(lista->fim, pos, lista->tamanho);
     }
 
-    return pAuxAndarilho->proximo->dado;
+    return pAuxAndarilho->proximo->atual;
 }
 
 /*=========================================================
@@ -420,4 +450,85 @@ void liberarLista(TLLDE * const lista){
     }
     lista->fim = NULL;
     lista->tamanho = 0;
+}
+
+/*=========================================================
+    Função para exibir os dados do aluno armazenado em um nó
+    Parâmetros:
+        1 - no - ponteiro para o nó que contém o aluno
+  =========================================================*/
+void exibirAluno(TNo const * const no){
+    printf("Numero de matricula: %s\n", 
+    no->atual->numMatricula);
+    printf("Nome: %s\n", no->atual->nome);
+    printf("Turno: %s\n", no->atual->turno);
+    printf("Periodo: %s\n", no->atual->periodo);
+    printf("Enfase: %s\n", no->atual->enfase);
+    printf("Curso: %s\n", no->atual->curso);
+}
+
+/*=========================================================
+    Função para verificar se o usuário deseja continuar
+    exibindo os elementos da lista
+    Retorno:
+        != 0 - continua a exibir
+        0 - interrompe a exibição
+  =========================================================*/
+int continuarExibindo(){
+    char continuar;
+    printf("Deseja exibir os proximos 30? (s/n): ");
+    scanf(" %c", &continuar);
+    if(continuar != 's' && continuar != 'S'){
+        return 1;
+    }
+    return 0;
+}
+
+/*=========================================================
+    Função para receber os dados de um aluno pelo teclado
+    Parametros:
+        Nenhum
+    Retorno:
+        Ponteiro para a struct TAluno preenchida com os
+        dados informados pelo usuário
+  =========================================================*/
+TAluno * receberDadosDoTeclado(){
+    TAluno *novo = malloc(sizeof(TAluno));
+    if (novo == NULL) {
+        printf("Erro de alocacao!\n");
+        exit(1);
+    }
+    char string[TAM_STRING];
+
+    printf("Digite a matricula (Ex: 2025.1.0028.0380-8):\n");
+    fgets(string, sizeof(string), stdin);
+    string[strcspn(string, "\n")] = '\0';
+    strcpy(novo->numMatricula, string);
+
+    printf("Digite o nome:\n");
+    fgets(string, sizeof(string), stdin);
+    string[strcspn(string, "\n")] = '\0';
+    strcpy(novo->nome, string);
+
+    printf("Digite o turno:\n");
+    fgets(string, sizeof(string), stdin);
+    string[strcspn(string, "\n")] = '\0';
+    strcpy(novo->turno, string);
+
+    printf("Digite o periodo:\n");
+    fgets(string, sizeof(string), stdin);
+    string[strcspn(string, "\n")] = '\0';
+    strcpy(novo->periodo, string);
+
+    printf("Digite a enfase:\n");
+    fgets(string, sizeof(string), stdin);
+    string[strcspn(string, "\n")] = '\0';
+    strcpy(novo->enfase, string);
+
+    printf("Digite o curso:\n");
+    fgets(string, sizeof(string), stdin);
+    string[strcspn(string, "\n")] = '\0';
+    strcpy(novo->curso, string);
+
+    return novo;
 }
