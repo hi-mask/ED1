@@ -553,13 +553,3 @@ void escolherDirecaoExibicao(TLLDE const * const lista){
             mostrarLista(lista, 0);
         }
 }
-
-int desejaExibirALista(){
-    char exibir;
-    printf("Deseja exibir a lista apos a ordenacao? (s/n): ");
-    scanf(" %c", &exibir);
-    if(exibir == 's' || exibir == 'S'){
-        return 1;
-    }
-    return 0;
-}

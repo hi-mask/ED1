@@ -57,6 +57,13 @@ void ordenarPorCursoNome(TLLDE * const lista);
   =========================================================*/
 void ordenarPorEnfaseNome(TLLDE * const lista);
 
-int desejaExibirALista();
+/*=========================================================
+    Função para verificar se o usuário deseja exibir a
+    lista após a ordenação
+    Retorno:
+        != 0 - exibe a lista
+        0 - não exibe a lista
+  =========================================================*/
+int desejaExibirAListaAposOrdenacao();
 
 #endif

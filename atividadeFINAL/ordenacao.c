@@ -33,7 +33,7 @@ void exibirMenuOrdenacao(TLLDE * const lista, char nomeArquivo[]){
             case 1:
             ordenarPorMatricula(lista);
             salvarListaNoArquivo(lista, nomeArquivo);
-            if(desejaExibirALista()){
+            if(desejaExibirAListaAposOrdenacao()){
                 escolherDirecaoExibicao(lista);
             }
             break;
@@ -41,7 +41,7 @@ void exibirMenuOrdenacao(TLLDE * const lista, char nomeArquivo[]){
             case 2:
             ordenarPorNome(lista);
             salvarListaNoArquivo(lista, nomeArquivo); 
-            if(desejaExibirALista()){
+            if(desejaExibirAListaAposOrdenacao()){
                 escolherDirecaoExibicao(lista);
             }
             break;
@@ -49,7 +49,7 @@ void exibirMenuOrdenacao(TLLDE * const lista, char nomeArquivo[]){
             case 3:
             ordenarPorCursoNome(lista);
             salvarListaNoArquivo(lista, nomeArquivo);
-            if(desejaExibirALista()){
+            if(desejaExibirAListaAposOrdenacao()){
                 escolherDirecaoExibicao(lista);
             }
             break;
@@ -57,7 +57,7 @@ void exibirMenuOrdenacao(TLLDE * const lista, char nomeArquivo[]){
             case 4:
             ordenarPorEnfaseNome(lista);
             salvarListaNoArquivo(lista, nomeArquivo);
-            if(desejaExibirALista()){
+            if(desejaExibirAListaAposOrdenacao()){
                 escolherDirecaoExibicao(lista);
             }
             break;
@@ -189,3 +189,19 @@ void ordenarPorEnfaseNome(TLLDE * const lista){
          printf("\nA lista foi ordenada pela enfase e nome dos(as) estudantes!\n\n");
 }
 
+/*=========================================================
+    Função para verificar se o usuário deseja exibir a
+    lista após a ordenação
+    Retorno:
+        != 0 - exibe a lista
+        0 - não exibe a lista
+  =========================================================*/
+int desejaExibirAListaAposOrdenacao(){
+    char exibir;
+    printf("Deseja exibir a lista apos a ordenacao? (s/n): ");
+    scanf(" %c", &exibir);
+    if(exibir == 's' || exibir == 'S'){
+        return 1;
+    }
+    return 0;
+}
