@@ -190,4 +190,11 @@ int continuarExibindo();
   =========================================================*/
 TAluno * receberDadosDoTeclado();
 
+/*=========================================================
+    Função para permitir ao usuário escolher a direção
+    de exibição dos elementos da lista
+    Parametros:
+        1 - lista - ponteiro para a lista a ser exibida
+  =========================================================*/
+void escolherDirecaoExibicao(TLLDE const * const lista);
 #endif

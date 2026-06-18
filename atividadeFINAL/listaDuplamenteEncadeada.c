@@ -66,7 +66,7 @@ void mostrarLista(TLLDE const * const lista, int direcao){
     pAux = lista->inicio;
     
         while(pAux != NULL){
-            printf("\n\n================== Estudante [%d] ==================\n", indiceAluno);
+            printf("\n\n=============================== Estudante [%d] ===============================\n", indiceAluno);
             exibirAluno(pAux);
 
             indiceAluno++;
@@ -89,7 +89,7 @@ void mostrarLista(TLLDE const * const lista, int direcao){
         indiceAluno = lista->tamanho - 1;
 
         while(pAux != NULL){
-            printf("\n\n================== Estudante [%d] ==================\n", indiceAluno);
+            printf("\n\n=============================== Estudante [%d] ===============================\n", indiceAluno);
             exibirAluno(pAux);
 
             indiceAluno--;
@@ -384,6 +384,7 @@ void retirarPosicao(TLLDE * const lista, int pos){
     pAuxTemp->proximo->anterior = pAuxAndarilho;
     free(pAuxTemp);
     lista->tamanho--;
+    printf("\nO(a) aluno(a) na posicao [%d] da lista saiu!\n", pos);
 }
 
 /*=========================================================
@@ -458,12 +459,12 @@ void liberarLista(TLLDE * const lista){
         1 - no - ponteiro para o nó que contém o aluno
   =========================================================*/
 void exibirAluno(TNo const * const no){
-    printf("Numero de matricula: %s\n", 
+    printf("Matricula: %s | ", 
     no->atual->numMatricula);
-    printf("Nome: %s\n", no->atual->nome);
-    printf("Turno: %s\n", no->atual->turno);
-    printf("Periodo: %s\n", no->atual->periodo);
-    printf("Enfase: %s\n", no->atual->enfase);
+    printf("Nome: %s | ", no->atual->nome);
+    printf("Turno: %s |\n", no->atual->turno);
+    printf("Periodo: %s | ", no->atual->periodo);
+    printf("Enfase: %s | ", no->atual->enfase);
     printf("Curso: %s\n", no->atual->curso);
 }
 
@@ -531,4 +532,34 @@ TAluno * receberDadosDoTeclado(){
     strcpy(novo->curso, string);
 
     return novo;
+}
+
+/*=========================================================
+    Função para permitir ao usuário escolher a direção
+    de exibição dos elementos da lista
+    Parametros:
+        1 - lista - ponteiro para a lista a ser exibida
+  =========================================================*/
+void escolherDirecaoExibicao(TLLDE const * const lista){
+        int direcao = -1;
+        printf("\nDirecao desejada\n1. Inicio->Fim\n0. Fim->Inicio\n\n");
+        printf("Opcao: ");
+        scanf("%d", &direcao);
+        getchar();
+        if(direcao){
+            mostrarLista(lista, 1);
+        }
+        else{
+            mostrarLista(lista, 0);
+        }
+}
+
+int desejaExibirALista(){
+    char exibir;
+    printf("Deseja exibir a lista apos a ordenacao? (s/n): ");
+    scanf(" %c", &exibir);
+    if(exibir == 's' || exibir == 'S'){
+        return 1;
+    }
+    return 0;
 }

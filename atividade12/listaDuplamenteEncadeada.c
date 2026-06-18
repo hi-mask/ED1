@@ -354,6 +354,7 @@ void retirarPosicao(TLLDE * const lista, int pos){
     pAuxTemp->proximo->anterior = pAuxAndarilho;
     free(pAuxTemp);
     lista->tamanho--;
+    printf("\nO elemento na posicao %d da lista saiu!\n", pos);
 }
 
 /*=========================================================

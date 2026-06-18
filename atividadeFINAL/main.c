@@ -3,6 +3,7 @@
 #include "listaDuplamenteEncadeada.h"
 #include "tratamentoArquivos.h"
 #include "aluno.h"
+#include "ordenacao.h"
 #define TAM_STRING 250
 int main(void){
     
@@ -17,18 +18,19 @@ int main(void){
         int opcao = -1;
         int posicao = -1;
 
-        printf("================== MENU ==================\n");
+        printf("\n================== MENU ==================\n");
         printf("1. Inserir no inicio\n");
-        printf("2. Acessar na inicio\n");
-        printf("3. Retirar na inicio\n\n");
+        printf("2. Acessar no inicio\n");
+        printf("3. Retirar no inicio\n\n");
         printf("4. Inserir no fim\n");
-        printf("5. Acessar na fim\n");
-        printf("6. Retirar na fim\n\n");
+        printf("5. Acessar no fim\n");
+        printf("6. Retirar no fim\n\n");
         printf("7. Inserir na Posicao\n");
         printf("8. Acessar na Posicao\n");
         printf("9. Retirar na Posicao\n");
         printf("10. Mostrar Lista\n\n");
-        printf("0. Sair\n\n");
+        printf("11. Menu de Ordenacao\n\n");
+        printf("0. Encerrar o Programa\n\n");
         printf("Opcao: ");
         scanf("%d", &opcao);
         getchar();
@@ -116,24 +118,18 @@ int main(void){
             break;
 
             case 10:
-            int direcao = -1;
-            printf("\nDirecao desejada\n1. Inicio->Fim\n0. Fim->Inicio\n");
-            printf("Opcao: ");
-            scanf("%d", &direcao);
-            getchar();
-            if(direcao){
-                mostrarLista(&lista, 1);
-            }
-            else{
-                mostrarLista(&lista, 0);
-            }
+            escolherDirecaoExibicao(&lista);
+            break;
+
+            case 11:
+            exibirMenuOrdenacao(&lista, nomeArquivo);
             break;
 
             case 0:
             salvarListaNoArquivo(&lista, nomeArquivo); 
             liberarLista(&lista);
-            printf("\nSaindo...\n");
-            return 0;
+            printf("\nEncerrando...\n");
+            exit(0);
 
             default:
             printf("\nOpcao invalida!\n");

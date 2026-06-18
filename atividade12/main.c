@@ -11,13 +11,14 @@ int main(void){
         int opcao = -1;
         int posicao = -1;
         int elemento = -1;
+        int direcao = -1;
         printf("\n================== MENU ==================\n");
         printf("1. Inserir no inicio\n");
-        printf("2. Acessar na inicio\n");
-        printf("3. Retirar na inicio\n");
+        printf("2. Acessar no inicio\n");
+        printf("3. Retirar no inicio\n");
         printf("4. Inserir no fim\n");
-        printf("5. Acessar na fim\n");
-        printf("6. Retirar na fim\n");
+        printf("5. Acessar no fim\n");
+        printf("6. Retirar no fim\n");
         printf("7. Inserir na Posicao\n");
         printf("8. Acessar na Posicao\n");
         printf("9. Retirar na Posicao\n");
@@ -79,7 +80,7 @@ int main(void){
             break;
 
             case 10:
-            int direcao = -1;
+            direcao = -1;
             printf("\nDirecao desejada\n1. Inicio->Fim\n0. Fim->Inicio\n");
             printf("Opcao: ");
             scanf("%d", &direcao);
